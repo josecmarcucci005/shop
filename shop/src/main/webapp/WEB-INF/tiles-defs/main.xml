@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="demo.meta" template="/WEB-INF/jsp/layout/meta.jsp" />
+	
+	<definition name="adminLayout" template="/WEB-INF/jsp/layout/login/layout.jsp">
+		<put-attribute name="title" value="Demo Admin System" />        
+		<put-attribute name="header" value="/WEB-INF/jsp/layout/login/header.jsp" />        
+		<put-attribute name="menu" value="/WEB-INF/jsp/layout/login/menu.jsp" />                
+		<put-attribute name="footer" value="/WEB-INF/jsp/layout/common/footer.jsp" />
+	</definition>
+	
+	<definition name="loginLayout" template="/WEB-INF/jsp/layout/login/layout.jsp">
+		<put-attribute name="title" value="Demo Admin System" />        
+		<put-attribute name="header" value="/WEB-INF/jsp/layout/login/header.jsp" />        
+		<put-attribute name="menu" value="/WEB-INF/jsp/layout/login/menu.jsp" />                
+		<put-attribute name="footer" value="/WEB-INF/jsp/layout/common/footer.jsp" />
+	</definition>
+	
+	<!-- Login page -->
+	<definition name="login" extends="loginLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
+	</definition>
+	<definition name="logout" extends="loginLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
+	</definition>
+	<definition name="loginfailed" extends="loginLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
+	</definition>
+	
+	<!-- Successful page -->
+	<definition name="home" extends="adminLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/hello.jsp" />
+	</definition>
+	
+</tiles-definitions>

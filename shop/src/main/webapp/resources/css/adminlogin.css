@@ -1,0 +1,33 @@
+@CHARSET "ISO-8859-1";
+
+.ui-login-main-container {
+    position: relative;
+    width: 750px;
+    margin: 20 auto 0 auto;
+}
+
+.ui-login-header-container {
+    position: relative;
+    height: 50px;
+    text-align: center;
+}
+
+.ui-login-body-container {
+    float: left;
+    height: 250px;
+    border: 1px solid #DEDEDE;
+    width: 100%;
+}
+
+.ui-login-body-info-container {
+    position: relative;
+    width: 445px;
+    margin-left: -50px;
+}
+
+.ui-login-body-form-container {
+    margin-left: 449px;
+    border: 1px solid #DEDEDE;
+    background-color: #EDEDED;
+    width: 300px;
+}

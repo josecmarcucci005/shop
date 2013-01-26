@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.1.xsd"
+           default-lazy-init="true">
+ 
+	<http auto-config="true">
+		<intercept-url pattern="/admin/login.htm" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/admin/**" access="ROLE_USER" />
+		
+		<form-login login-page="/admin/login.htm" default-target-url="/admin/home.htm"
+			always-use-default-target="true"  authentication-failure-url="/admin/loginfailed" />
+		<logout invalidate-session="true" logout-success-url="/" logout-url="/j_spring_security_logout" />
+	</http>
+  
+   <beans:bean id="ss_dataSource" 
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <beans:property name="url" value="jdbc:mysql://localhost:3306/demo"/>
+        <beans:property name="username" value="demo"/>
+        <beans:property name="password" value="demo"/>	
+    </beans:bean>
+    
+     <beans:bean id="transactionManager" 
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+          <beans:property name="entityManagerFactory" 
+                    ref="entityManagerFactory"/>
+          <beans:property name="dataSource"
+                    ref="ss_dataSource"/>
+    </beans:bean>    
+    
+<!--
+================================================================================
+EntityManagerFactory
+================================================================================
+-->
+    <beans:bean id="entityManagerFactory" 
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <beans:property name="dataSource" 
+                  ref="ss_dataSource"/>
+        <beans:property name="jpaVendorAdapter">
+            <beans:bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+            </beans:bean>
+        </beans:property> 
+        <beans:property name="persistenceUnitName" value="db_demo"/>   
+    </beans:bean> 
+    
+	<beans:bean id="daoAuthenticationProvider"
+	 class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+	  <beans:property name="passwordEncoder" ref="passwordEncoder"/>
+	</beans:bean>
+
+	<beans:bean id="authenticationManager"
+	    class="org.springframework.security.authentication.ProviderManager">
+	  <beans:property name="providers">
+	    <beans:list>
+	      <beans:ref local="daoAuthenticationProvider" />
+	    </beans:list>
+	  </beans:property>
+	</beans:bean>
+	
+	<beans:bean id="passwordEncoder"  class="org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder">
+    	<beans:constructor-arg value="MD5" />
+	</beans:bean>
+
+	<authentication-manager>
+	  <authentication-provider>
+	  	<password-encoder ref="passwordEncoder"/>
+	    <jdbc-user-service data-source-ref="ss_dataSource"/>
+	  </authentication-provider>
+	</authentication-manager>
+	
+</beans:beans> 	 	 	
