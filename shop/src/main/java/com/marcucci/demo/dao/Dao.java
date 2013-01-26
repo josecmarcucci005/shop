@@ -7,6 +7,8 @@ import com.marcucci.demo.orm.entities.PersistenceEntity;
 /**
  * 
  * @author Jose Gonzalez Marcucci
+ * 
+ * This interface define the basic Dao interface 
  *
  */
 public interface Dao < E extends PersistenceEntity > {
